@@ -1,0 +1,22 @@
+<template>
+	<div class="pure-notification">
+		<div class="pure-notification__icon">
+			<Icon>&#xe629;</Icon>
+			dsa
+		</div>
+		<div class="pure-notification__content">
+			<div class="pure-notification__title"></div>
+			<div class="pure-notification__desc"></div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import Icon from 'pure-icon';
+
+	export default {
+		components: {
+			Icon,
+		},
+	};
+</script>
