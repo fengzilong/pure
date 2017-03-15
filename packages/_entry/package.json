@@ -44,6 +44,7 @@
     "pure-tab-pane": "^0.1.0",
     "pure-table": "^0.1.0",
     "pure-tabs": "^0.1.0",
+    "pure-tag": "^0.1.0",
     "pure-td": "^0.1.0",
     "pure-textarea": "^0.1.0",
     "pure-tr": "^0.1.0",
@@ -54,6 +55,7 @@
     "pure-tooltip": "^0.1.0",
     "pure-progress-bar": "^0.1.0",
     "pure-progress-circle": "^0.1.0",
+    "pure-tag": "^0.1.0",
     "pure-cli": "latest"
   }
 }

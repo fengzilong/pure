@@ -1,0 +1,156 @@
+@import './common/var.less';
+@import './common/color.less';
+
+@tag-prefix-cls: ~"@{pure-prefix}-tag";
+
+.@{tag-prefix-cls} {
+    display: inline-block;
+    line-height: 20px;
+    height: 22px;
+    padding: 0 8px;
+    border-radius: @border-radius-base;
+    border: @border-width-base @border-style-base @border-color-split;
+    background: @background-color-base;
+    font-size: @font-size-base;
+    transition: all 0.3s;
+    opacity: 1;
+    margin-right: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &,
+    a,
+    a:hover {
+      color: @text-color;
+    }
+
+    &-checkable {
+      background-color: transparent;
+      border-color: transparent;
+      &:hover,
+      &:active,
+      &-checked {
+        color: #fff;
+      }
+      &:hover {
+        background-color: #49a9ee;
+      }
+      &-checked {
+        background-color: #108ee9;
+      }
+      &:active {
+        background-color: #0e77ca;
+      }
+    }
+
+    &-text {
+    a:first-child:last-child {
+      display: inline-block;
+      margin: 0 -8px;
+      padding: 0 8px;
+    }
+    }
+
+    &-pink {
+      color: #f5317f;
+      background: #fdd8e7;
+      border-color: #fdd8e7
+    }
+
+    &-pink-inverse {
+      background: #f5317f;
+      border-color: #f5317f;
+      color: #fff
+    }
+
+    &-red {
+      color: #f04134;
+      background: #fcdbd9;
+      border-color: #fcdbd9
+    }
+
+    &-red-inverse {
+      background: #f04134;
+      border-color: #f04134;
+      color: #fff
+    }
+
+    &-orange {
+      color: #f56a00;
+      background: #fde3cf;
+      border-color: #fde3cf
+    }
+
+    &-orange-inverse {
+      background: #f56a00;
+      border-color: #f56a00;
+      color: #fff
+    }
+
+    &-yellow {
+      color: #ffbf00;
+      background: #fff3cf;
+      border-color: #fff3cf
+    }
+
+    &-yellow-inverse {
+      background: #ffbf00;
+      border-color: #ffbf00;
+      color: #fff
+    }
+
+    &-cyan {
+      color: #00a2ae;
+      background: #cfedf0;
+      border-color: #cfedf0
+    }
+
+    &-cyan-inverse {
+      background: #00a2ae;
+      border-color: #00a2ae;
+      color: #fff
+    }
+
+    &-green {
+      color: #00a854;
+      background: #cfefdf;
+      border-color: #cfefdf
+    }
+
+    &-green-inverse {
+      background: #00a854;
+      border-color: #00a854;
+      color: #fff
+    }
+
+    &-blue {
+      color: #108ee9;
+      background: #d2eafb;
+      border-color: #d2eafb
+    }
+
+    &-blue-inverse {
+      background: #108ee9;
+      border-color: #108ee9;
+      color: #fff
+    }
+
+    &-purple {
+      color: #7265e6;
+      background: #e4e2fa;
+      border-color: #e4e2fa
+    }
+
+    &-purple-inverse {
+      background: #7265e6;
+      border-color: #7265e6;
+      color: #fff
+    }
+    &.hide {
+        display: none;
+    }
+}
