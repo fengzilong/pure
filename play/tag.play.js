@@ -7,8 +7,6 @@ play( Tag, module )
             <Tag on-click={this.clickTag()} 
                  on-close={this.tagClose($event)} 
                  closable>closable</Tag>
-            <Tag color="pink">pink</Tag>
-            <Tag color="pink-inverse">pink-inverse</Tag>
             <Tag checkable on-check={this.check($event)}>checkable</Tag>
             <Tag checkable checked>checked</Tag>
 		`,

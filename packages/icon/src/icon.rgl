@@ -8,8 +8,8 @@
 			// `di` means default icon
 			this.data.iconset = this.data.iconset || 'di';
 		},
-        onClick: function(e){
-            this.$emit('click', e)
-        }
+		onClick( e ) {
+			this.$emit( 'click', e );
+		}
 	};
 </script>
