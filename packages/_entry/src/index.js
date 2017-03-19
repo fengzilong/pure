@@ -38,6 +38,7 @@ import NumberInput from 'pure-number-input/src';
 import Tooltip from 'pure-tooltip/src';
 import ProgressBar from 'pure-progress-bar/src';
 import ProgressCircle from 'pure-progress-circle/src';
+import Upload from 'pure-upload/src';
 
 // default theme
 import 'pure-theme';
@@ -81,6 +82,7 @@ export {
 	Tooltip,
 	ProgressBar,
 	ProgressCircle,
+	Upload
 };
 
 export default function Pure( Component ) {
@@ -123,4 +125,5 @@ export default function Pure( Component ) {
 	Component.use( install( 'Tooltip', Tooltip ) );
 	Component.use( install( 'ProgressBar', ProgressBar ) );
 	Component.use( install( 'ProgressCircle', ProgressCircle ) );
+	Component.use( install( 'Upload', Upload ) );
 };

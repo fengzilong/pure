@@ -1,0 +1,70 @@
+@import './common/var.less';
+@import './common/color.less';
+
+@upload-prefix-cls: ~"@{pure-prefix}-upload";
+
+/* 到时删除 */
+/* body {
+	font-family: Lato,-apple-system,Segoe UI,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+} */
+ul,li {
+	list-style-type: none;
+	padding: 0;
+}
+.@{upload-prefix-cls}__container {
+	width: 360px;
+}
+.@{upload-prefix-cls}__tip{
+	font-size: 12px;
+    color: #8391a5;
+    margin-top: 7px;
+}
+.@{upload-prefix-cls} {
+	position: relative;
+	&-dragger{
+		position: relative;
+		box-sizing: border-box;
+		height: 180px;
+	    border: 1px dashed #d9d9d9;
+	    border-radius: 6px;
+	    text-align: center;
+	    cursor: pointer;
+	    background-color: #fff;
+	    overflow: hidden;
+	    i{
+	    	margin: 20px auto 16px;
+	    	font-size: 67px;
+	    }
+	    span{
+	    	color: #20a0ff;
+	    }
+		&__input{
+			display: none;
+		}
+		&:hover{
+			border: 1px dashed #20a0ff
+		}
+	}
+	&-list-none{
+		display: none;
+	}
+	&-list__item{
+		position: relative;
+		width: 100%;
+		margin: 7px 0;
+		&-name{
+			display: block;
+			margin-right: 40px;
+			font-size: 14px;
+			color: #666;
+			overflow: hidden;
+			text-overflow: ellipsis;
+    		white-space: nowrap;
+		}
+		&-icon{
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+	}
+}
