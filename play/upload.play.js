@@ -8,7 +8,6 @@ play( Upload, module )
 	.component( 'ProgressBar', ProgressBar )
 	.add( 'basic', `
 			<Upload show-file-list=true>
-				<Button primary sm>点击上传</Button>
 				<div class="pure-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 			</Upload>
 		` )

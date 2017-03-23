@@ -2,7 +2,7 @@
 	<div class="pure-upload__container { drag ? 'pure-upload--drag' : '' }">
 		{#if drag}
 			<div class="pure-upload-dragger" on-click={this.upload()}>
-				<i class="pure-icon pure-icon--di di-paint "></i>
+				<i class="pure-icon pure-icon--di di-upload "></i>
 				<div class="pure-upload__text">
 					将文件拖到此处，或<span>点击上传</span>
 				</div>
@@ -13,12 +13,13 @@
 			<input ref=input type="file" class="pure-upload-dragger__input">
 			{/if}
 		{#else}
+			<Button primary sm>点击上传</Button>
 			{#inc this.$body}
 			<ul class="{ showFileList=='true' ? 'pure-upload-list' : 'pure-upload-list-none' }">
 			{#list fileList as item}
 				<li class="pure-upload-list__item">
 					<a class="pure-upload-list__item-name">
-						<i class="pure-icon pure-icon--di di-paint "></i>
+						<i class="pure-icon pure-icon--di di-file "></i>
 						<span>{item.name}</span>
 					</a>
 					<label class="pure-upload-list__item-icon">
@@ -32,8 +33,13 @@
 </template>
 
 <script>
+	import Button from 'pure-button'
 	export default {
+		components: {
+			Button
+		},
 		config(data){
+			console.log(this);
 			console.log(data);
 			this.data.showFileList = data.showFileList||true;
 			this.data.fileList= [{
