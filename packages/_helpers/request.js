@@ -6,8 +6,8 @@
  *     @property {obj} data 传输的数据 [默认值: {}]
  *     @property {string} type 传输的数据类型  [默认值: 'json']
  *     @property {string} method 请求类型 [默认值: 'GET']
- *     @property {boolean} reset 请求是否带上时间戳避免缓存 true: 带时间戳 false: 不带时间戳 [默认值: true]
- *     @property {boolean} progress 上传是否显示进度条 true: 显示 false: 不显示 [默认值: false]
+ *     @property {boolean} reset 请求是否带上时间戳避免缓存 true: 带时间戳 false: 不带时间戳 [默认值: true] 
+ *     @property {boolean} progress 上传是否显示进度条 true: 显示 false: 不显示 [默认值: false] 一般给图片等文件上传专用
  */
 var request = function(url, opts) {
     //初始化opts
@@ -20,27 +20,45 @@ var request = function(url, opts) {
     };
     //1.创建XHR对象
     var XHR = createXHR();
-    //2.连接服务器
+    //url拼接，是否加时间戳避免缓存
     var url = exchangeURL(url, opts.reset);
-    XHR.open(opts.method, url, opts.async);
-
+    // opts.data = exchangeData(opts.data);
+    console.log(opts);
     if(opts.progress === true) {
         opts.data = exchangeImgData(opts.data);
         XHR.upload.addEventListener('progress',function(evt) {
             if(evt.lengthComputable) {
                 var complete = (evt.loaded / evt.total * 100 | 0);
-                console.log(evt);
+                console.log(complete);
+                //到时给progress进度条使用
+                progress.value = progress.innerHTML = complete;
+                progress.style.width = (progress.value*6)+"px";
             }
         },false);
-        XHR.upload.addEventListener('load',function(evt) {
+        XHR.addEventListener('load', function(evt) {
+            //到时给progress进度条使用
+            progress.value = progress.innerHTML = 100;
             console.log(evt);
-        },false);
+            console.log('上传完毕');
+        }, false);
+        XHR.addEventListener('error', function(evt) {
+            console.log('上传时发生错误');
+        }, false);
+        XHR.addEventListener('abort', function(evt) {
+            console.log('上传时发生错误');
+        }, false);
+        //2.连接服务器
+        XHR.open(opts.method, url);
+        //3.发送数据
+        XHR.send(opts.data);
+    }else{
+        //2.连接服务器
+        XHR.open(opts.method, url, opts.async);
+        //3.发送数据
+        XHR.send(opts.data);
+        //4.接收返回数据
+        XHR.onreadyState = getState.bind(this);
     }
-    //3.发送数据
-    // opts.data = exchangeData(opts.data);
-    XHR.send(opts.data);
-    //4.接收返回数据
-    XHR.onreadyState = getState.bind(this);
 };
 
 /**
