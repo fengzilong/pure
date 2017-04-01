@@ -39,6 +39,9 @@
 
 <script>
 	import Button from 'pure-button'
+	import ProgressBar from 'pure-button'
+	import ProgressCircle from 'pure-button'
+	
 	export default {
 		components: {
 			Button
