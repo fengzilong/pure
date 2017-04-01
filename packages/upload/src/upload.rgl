@@ -8,12 +8,17 @@
 				</div>
 			</div>
 			{#if multiple}
-			<input multiple ref=input type="file" class="pure-upload-dragger__input">
+			<input multiple ref=input type="file" class="pure-upload-input">
 			{#else}
-			<input ref=input type="file" class="pure-upload-dragger__input">
+			<input ref=input type="file" class="pure-upload-input">
 			{/if}
 		{#else}
-			<Button primary sm>点击上传</Button>
+			<Button primary sm on-click={this.upload()}>点击上传</Button>
+			{#if multiple}
+			<input multiple ref=input type="file" class="pure-upload-input">
+			{#else}
+			<input ref=input type="file" class="pure-upload-input">
+			{/if}
 			{#inc this.$body}
 			<ul class="{ showFileList=='true' ? 'pure-upload-list' : 'pure-upload-list-none' }">
 			{#list fileList as item}
@@ -39,6 +44,7 @@
 			Button
 		},
 		config(data){
+			[drag, multiple, showFileList]
 			console.log(this);
 			console.log(data);
 			this.data.showFileList = data.showFileList||true;

@@ -92,13 +92,13 @@ var exchangeURL = function(url, reset) {
  * 转换Data的函数
  * @param {obj} data 传输的数据 [默认值: {}]
  */
-var exchangeData = function(data) {
-    var arr = [];
-    for (var i in data) { 
-        arr.push(encodeURIComponent(i) + '=' + encodeURIComponent(data[i]));
-    }
-    return arr.join('&');
-};
+// var exchangeData = function(data) {
+//     var arr = [];
+//     for (var i in data) { 
+//         arr.push(encodeURIComponent(i) + '=' + encodeURIComponent(data[i]));
+//     }
+//     return arr.join('&');
+// };
 
 /**
  * 转换Data的函数,专门给图片使用
