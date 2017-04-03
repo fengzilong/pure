@@ -4,9 +4,9 @@
 @upload-prefix-cls: ~"@{pure-prefix}-upload";
 
 /* 到时删除 */
-/* body {
+body {
 	font-family: Lato,-apple-system,Segoe UI,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-} */
+}
 ul,li {
 	list-style-type: none;
 	padding: 0;
@@ -50,6 +50,7 @@ ul,li {
 		position: relative;
 		width: 100%;
 		margin: 7px 0;
+		padding-left: 5px;
 		&-name{
 			display: block;
 			margin-right: 40px;
@@ -59,11 +60,32 @@ ul,li {
 			text-overflow: ellipsis;
     		white-space: nowrap;
 		}
+		&-name:hover{
+		    color: #20a0ff;
+		    cursor: pointer;
+		}
 		&-icon{
 			position: absolute;
 			top: 0;
-			right: 0;
+			right: 10px;
 			color: #666;
+		}
+		.di-success{
+			display: inline-block;
+		}
+		.di-close{
+			cursor: pointer;
+			display: none;
+		}
+	}
+	&-list__item:hover{
+		background-color: rgba(232,237,250,.6);
+		box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
+		.di-success{
+			display: none;
+		}
+		.di-close{
+			display: inline-block;
 		}
 	}
 	&-input{

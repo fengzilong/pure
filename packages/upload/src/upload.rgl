@@ -29,6 +29,7 @@
 					</a>
 					<label class="pure-upload-list__item-icon">
 						<i class="pure-icon pure-icon--di {item.status=='success' ? 'di-success': ''}"></i>
+						<i class="pure-icon pure-icon--di di-close"></i>
 					</label>
 				</li>
 			{/list}
@@ -44,12 +45,12 @@
 	
 	export default {
 		components: {
-			Button
+			Button,
+			ProgressBar,
+			ProgressCircle
 		},
-		config(data){
-			[drag, multiple, showFileList]
-			console.log(this);
-			console.log(data);
+		config(data) {
+			// [drag, multiple, showFileList]
 			this.data.showFileList = data.showFileList||true;
 			this.data.fileList= [{
 		          name: 'pic1.jpeg',
@@ -61,7 +62,7 @@
 		          status: 'success'
 		        }]
 		},
-		upload(){
+		upload() {
 			this.$refs.input.click();
 		}
 	};
