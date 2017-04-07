@@ -46,10 +46,8 @@
 		components: {
 			Button
 		},
-		config(data){
-			[drag, multiple, showFileList]
-			console.log(this);
-			console.log(data);
+		config(data) {
+			// [drag, multiple, showFileList]
 			this.data.showFileList = data.showFileList||true;
 			this.data.fileList= [{
 		          name: 'pic1.jpeg',
@@ -61,8 +59,29 @@
 		          status: 'success'
 		        }]
 		},
-		upload(){
+		upload() {
 			this.$refs.input.click();
+			this.inputChange();
+		},
+		inputChange() {
+			var input = this.$refs.input;
+			var self = this;
+			input.addEventListener('change',function(evt) {
+				var files = this.files;
+				if(files.length) {
+					self.checkFiles(files)
+				}
+			},false);
+		},
+		checkFiles(files) {
+			for(var i = 0,l = files.length; i < l;i++){
+				var reader = new FileReader();
+				reader.onload = function() {
+					reader.readAsDataURL(file[i]);
+				};
+
+				// console.log(reader);
+			}
 		}
 	};
 </script>
