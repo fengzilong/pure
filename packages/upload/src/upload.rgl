@@ -64,27 +64,54 @@
 		},
 		upload() {
 			this.$refs.input.click();
-			this.inputChange();
+			if(!this.isAlreadyBinding){
+				this.inputChange();
+			}
 		},
 		inputChange() {
 			var input = this.$refs.input;
 			var self = this;
+			this.isAlreadyBinding = true;
 			input.addEventListener('change',function(evt) {
 				var files = this.files;
-				if(files.length) {
+				if(files) {
 					self.checkFiles(files)
 				}
-			},false);
+			});
 		},
 		checkFiles(files) {
-			for(var i = 0,l = files.length; i < l;i++){
+			let i = 0;
+			var loopUpload = function() {
+				if(files[i]) {
+					var reader = new FileReader();
+					if(!/image\/\w+/.test(files[i].type)){
+			            alert('请上传图片格式');
+			            return false;
+			        }
+					reader.onload = function() {
+						// var Img = document.createElement('img');
+						// Img.src = reader.result;
+						// document.body.appendChild(Img);
+						i++;
+						loopUpload();
+					};
+					reader.readAsDataURL(files[i]);
+				}
+				
+			};
+			loopUpload();
+
+
+
+
+			/*for(var i = 0,l = files.length; i < l;i++){
 				var reader = new FileReader();
 				reader.onload = function() {
 					reader.readAsDataURL(file[i]);
 				};
 
 				// console.log(reader);
-			}
+			}*/
 		}
 	};
 </script>
