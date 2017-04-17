@@ -68,9 +68,9 @@ export default class Request{
             XHR.open(opts.method, url, opts.async);
             //3.发送数据
             XHR.send(opts.data);
-            //4.接收返回数据
-            XHR.onreadyState = this.getState.bind(XHR);
         }
+        //4.接收返回数据
+        XHR.onreadystatechange = this.getState.bind(XHR, opts);
     };
 
     /**
@@ -134,7 +134,7 @@ export default class Request{
     /**
      * 获取请求返回
      */
-    getState() {
+    getState(opts) {
         if(this.readyState == 4) {
             if(this.status == 200) {
                 opts.success(this.responseText);        
