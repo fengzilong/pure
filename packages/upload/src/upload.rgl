@@ -108,7 +108,10 @@
 						var imgData = reader.result;
 						var opts = {
 				            method : 'POST',
-				            data : imgData,
+				            data : {
+				            	'imgData':imgData,
+				            	'index':i
+				        	},
 				            progress: true,
 				            success : function (data) {
 				                console.log(data);
@@ -116,11 +119,11 @@
 				        }
 				        Request.getInstance().request('https://jsonplaceholder.typicode.com/posts/',opts);
 
-				        opts.onProgress = function(complete) {
-				        	self.createUploadFileList(complete);
+				        opts.onProgress = function(complete, index) {
+				        	self.createUploadFileList(complete, index);
 				        };
-				        opts.onProgressEnd = function() {
-
+				        opts.onProgressEnd = function(index) {
+				        	self.removeUploadFileList(index);
 				        };
 
 						i++;
@@ -132,11 +135,6 @@
 			};
 			loopUpload();
 		},
-		createUploadFileList(complete) {
-			console.log(complete);
-			// this.data.uploadList = 
-
-		},
 		initUploadList(files) {
 			this.data.uploadList = [];
 			for(let i = 0,l = files.length;i < l;i++) {
@@ -145,6 +143,21 @@
 				uploadListItem.complete = 0;
 				this.data.uploadList.push(uploadListItem);
 			}
+			this.$update();
+		},
+		createUploadFileList(complete, index) {
+			this.data.uploadList[index].complete = complete;
+			this.$update();
+
+		},
+		removeUploadFileList(index) {
+		    let newFileList = [];
+		    newFileList.name = this.data.uploadList[index].name;
+		    newFileList.url = '';
+		    newFileList.status = 'success';
+
+			this.data.fileList.push(newFileList);
+			this.data.uploadList[index] = [];
 			this.$update();
 		}
 	};

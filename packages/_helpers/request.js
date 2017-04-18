@@ -35,12 +35,13 @@ export default class Request{
         // opts.data = exchangeData(opts.data);
         console.log(opts);
         if(opts.progress === true) {
-            opts.data = this.exchangeImgData(opts.data);
+            var index = opts.data.index;
+            opts.data = this.exchangeImgData(opts.data.imgData);
             XHR.upload.addEventListener('progress',function(evt) {
                 if(evt.lengthComputable) {
                     var complete = (evt.loaded / evt.total * 100 | 0);
                     // console.log(complete);
-                    opts.onProgress(complete);
+                    opts.onProgress(complete, index);
                     //到时给progress进度条使用
                     // progress.value = progress.innerHTML = complete;
                     // progress.style.width = (progress.value*6)+"px";
@@ -48,7 +49,7 @@ export default class Request{
             },false);
             XHR.addEventListener('load', function(evt) {
                 //到时给progress进度条使用
-                opts.onProgressEnd(evt);
+                opts.onProgressEnd(index);
                 // progress.value = progress.innerHTML = 100;
                 // console.log(evt);
                 // console.log('上传完毕');
@@ -140,7 +141,7 @@ export default class Request{
                 opts.success(this.responseText);        
             }else {
                 // opts.fail();
-                alert('请求失败');         
+                // alert('请求失败');         
             }
         }
     };
