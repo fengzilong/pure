@@ -33,8 +33,18 @@
 					</label>
 				</li>
 			{/list}
+			{#list uploadList as item}
+			<li class="pure-upload-list__item">
+				<a class="pure-upload-list__item-name">
+					<i class="pure-icon pure-icon--di di-file "></i>
+					<span>{item.name||''}</span>
+				</a>
+			</li>
+			<div class="pure-upload-list__item-progress">
+				<ProgressBar percentage="{item.complete||0}"></ProgressBar>
+			</div>
+			{/list}
 			</ul>
-			<ProgressBar percentage="50"></ProgressBar>
 		{/if}
 	</div>
 </template>
@@ -53,6 +63,7 @@
 		},
 		config(data) {
 			// [drag, multiple, showFileList]
+			data = data || this.data;
 			this.data.showFileList = data.showFileList||true;
 			this.data.fileList= [{
 		          name: 'pic1.jpeg',
@@ -82,6 +93,8 @@
 			});
 		},
 		checkFiles(files) {
+			this.initUploadList(files);
+
 			var self = this;
 			let i = 0;
 			var loopUpload = function() {
@@ -104,8 +117,7 @@
 				        Request.getInstance().request('https://jsonplaceholder.typicode.com/posts/',opts);
 
 				        opts.onProgress = function(complete) {
-				        	var list = self.createUploadFileList(complete);
-				        	self.$refs.fileListBox.appendChild(list);
+				        	self.createUploadFileList(complete);
 				        };
 				        opts.onProgressEnd = function() {
 
@@ -120,21 +132,20 @@
 			};
 			loopUpload();
 		},
-		createUploadFileList(complete){
-			var list = document.createElement('li');
-			list.className = 'pure-upload-list__item';
-			var progressBar = new ProgressBar();
-			progressBar.$inject(list);
-			list.innerHTML = '<a class="pure-upload-list__item-name">\
-								<i class="pure-icon pure-icon--di di-file "></i>\
-								<span></span>\
-							</a>'+
-							progressBar
-							+'<label class="pure-upload-list__item-icon">\
-								<i class="pure-icon pure-icon--di></i>\
-								<i class="pure-icon pure-icon--di di-close"></i>\
-							</label>';
-			return list;
+		createUploadFileList(complete) {
+			console.log(complete);
+			// this.data.uploadList = 
+
+		},
+		initUploadList(files) {
+			this.data.uploadList = [];
+			for(let i = 0,l = files.length;i < l;i++) {
+				var uploadListItem = {};
+				uploadListItem.name = files[i].name;
+				uploadListItem.complete = 0;
+				this.data.uploadList.push(uploadListItem);
+			}
+			this.$update();
 		}
 	};
 </script>

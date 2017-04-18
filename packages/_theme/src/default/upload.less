@@ -14,14 +14,14 @@ ul,li {
 .@{upload-prefix-cls}__container {
 	width: 360px;
 }
-.@{upload-prefix-cls}__tip{
+.@{upload-prefix-cls}__tip {
 	font-size: 12px;
     color: #8391a5;
     margin-top: 7px;
 }
 .@{upload-prefix-cls} {
 	position: relative;
-	&-dragger{
+	&-dragger {
 		position: relative;
 		box-sizing: border-box;
 		height: 180px;
@@ -31,27 +31,29 @@ ul,li {
 	    cursor: pointer;
 	    background-color: #fff;
 	    overflow: hidden;
-	    i{
+	    i {
 	    	margin: 20px auto 16px;
 	    	font-size: 67px;
 			color: #666;
 	    }
-	    span{
+	    span {
 	    	color: #20a0ff;
 	    }
-		&:hover{
+		&:hover {
 			border: 1px dashed #20a0ff
 		}
 	}
-	&-list-none{
+	&-list-none {
 		display: none;
 	}
-	&-list__item{
+	&-list__item {
+		zoom: 1; 
 		position: relative;
 		width: 100%;
 		margin: 7px 0;
 		padding-left: 5px;
-		&-name{
+		&-name {
+			float: left;
 			display: block;
 			margin-right: 40px;
 			font-size: 14px;
@@ -60,35 +62,46 @@ ul,li {
 			text-overflow: ellipsis;
     		white-space: nowrap;
 		}
-		&-name:hover{
+		&-name:hover {
 		    color: #20a0ff;
 		    cursor: pointer;
 		}
-		&-icon{
+		&-icon {
 			position: absolute;
 			top: 0;
 			right: 10px;
 			color: #666;
 		}
-		.di-success{
+		&-progress {
+			padding-left: 5px;
+		}
+		.di-success {
 			display: inline-block;
 		}
-		.di-close{
+		.di-close {
 			cursor: pointer;
 			display: none;
 		}
 	}
-	&-list__item:hover{
+	&-list__item:after {
+		content: "";
+		display: block;
+		clear: both;
+		height: 0;
+		overflow: hidden;
+		visibility: hidden;
+	}
+	&-list__item:hover {
 		background-color: rgba(232,237,250,.6);
 		box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
-		.di-success{
+		.di-success {
 			display: none;
 		}
-		.di-close{
+		.di-close {
 			display: inline-block;
 		}
 	}
-	&-input{
+	&-input {
 		display: none;
 	}
 }
