@@ -1,68 +1,52 @@
 <template>
 	<div class="pure-upload__container { drag ? 'pure-upload--drag' : '' }">
 		{#if drag}
-			<div class="pure-upload-dragger" on-click={this.upload()}>
+			<div ref=drag class="pure-upload-dragger" 
+				on-click={this.upload()}
+				on-dragenter={this.dragEnter()}
+				on-dragleave={this.dragLeave()}
+				on-drop={this.drop()}
+				on-dragover={this.dragOver()}
+			>
 				<i class="pure-icon pure-icon--di di-upload "></i>
 				<div class="pure-upload__text">
 					将文件拖到此处，或<span>点击上传</span>
 				</div>
 			</div>
-			{#if multiple}
-			<input multiple ref=input type="file" class="pure-upload-input">
-			{#else}
-			<input ref=input type="file" class="pure-upload-input">
-			{/if}
 		{#else}
 			<Button primary sm on-click={this.upload()}>点击上传</Button>
-			{#if multiple}
+		{/if}
+
+		{#if multiple}
 			<input multiple ref=input type="file" class="pure-upload-input">
-			{#else}
+		{#else}
 			<input ref=input type="file" class="pure-upload-input">
-			{/if}
-			{#inc this.$body}
-			<ul ref=fileListBox class="{ showFileList=='true' ? 'pure-upload-list' : 'pure-upload-list-none' }">
-			{#list fileList as item}
-				<li class="pure-upload-list__item">
-					<a class="pure-upload-list__item-name">
-						<i class="pure-icon pure-icon--di di-file "></i>
-						<span>{item.name}</span>
-					</a>
-					<label class="pure-upload-list__item-icon">
-						<i class="pure-icon pure-icon--di {item.status=='success' ? 'di-success': ''}"></i>
-						<i class="pure-icon pure-icon--di di-close"></i>
-					</label>
-				</li>
-			{/list}
-			{#list uploadList as item}
-			<li class="pure-upload-list__item">
-				<a class="pure-upload-list__item-name">
-					<i class="pure-icon pure-icon--di di-file "></i>
-					<span>{item.name||''}</span>
-				</a>
-			</li>
-			<div class="pure-upload-list__item-progress">
-				<ProgressBar percentage="{item.complete||0}"></ProgressBar>
-			</div>
-			{/list}
-			</ul>
+		{/if}
+
+		{#inc this.$body}
+
+		{#if showFileList}
+			<FileList 
+				fileList = '{ fileList }'
+				uploadList = '{ uploadList }'
+			></FileList>
 		{/if}
 	</div>
 </template>
 
 <script>
 	import Button from 'pure-button'
-	import ProgressBar from 'pure-progress-bar'
-	import ProgressCircle from 'pure-progress-circle'
 	import Request from 'pure-helpers/request'
+	import FileList from './compontents/fileList'
 	
 	export default {
 		components: {
 			Button,
-			ProgressBar,
-			ProgressCircle
+			Request,
+			FileList
 		},
 		config(data) {
-			// [drag, multiple, showFileList]
+			// [drag：默认false, multiple：默认false;若为拖拽只能为true, showFileList：默认true]
 			data = data || this.data;
 			this.data.showFileList = data.showFileList||true;
 			this.data.fileList= [{
@@ -74,6 +58,18 @@
 		          url: '',
 		          status: 'success'
 		        }]
+		},
+		dragEnter(evt){
+			this.$refs.drag.className = 'pure-upload-dragger__hover';
+		},
+		dragLeave(evt){
+			this.$refs.drag.className = 'pure-upload-dragger';
+		},
+		drop(evt){
+			evt.preventDefault();
+		},
+		dragOver(evt){
+			evt.preventDefault();
 		},
 		upload() {
 			this.$refs.input.click();
@@ -120,7 +116,7 @@
 				        Request.getInstance().request('https://jsonplaceholder.typicode.com/posts/',opts);
 
 				        opts.onProgress = function(complete, index) {
-				        	self.createUploadFileList(complete, index);
+				        	self.updateUploadFileList(complete, index);
 				        };
 				        opts.onProgressEnd = function(index) {
 				        	self.removeUploadFileList(index);
@@ -145,7 +141,7 @@
 			}
 			this.$update();
 		},
-		createUploadFileList(complete, index) {
+		updateUploadFileList(complete, index) {
 			this.data.uploadList[index].complete = complete;
 			this.$update();
 
@@ -157,7 +153,7 @@
 		    newFileList.status = 'success';
 
 			this.data.fileList.push(newFileList);
-			this.data.uploadList[index] = [];
+			this.data.uploadList[index] = {};
 			this.$update();
 		}
 	};

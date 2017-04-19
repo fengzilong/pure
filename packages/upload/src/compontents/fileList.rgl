@@ -1,0 +1,39 @@
+<template>
+    <ul ref=fileListBox class="pure-upload-list">
+    {#list fileList as item}
+        <li class="pure-upload-list__item">
+            <a class="pure-upload-list__item-name">
+                <i class="pure-icon pure-icon--di di-file "></i>
+                <span>{item.name}</span>
+            </a>
+            <label class="pure-upload-list__item-icon">
+                <i class="pure-icon pure-icon--di {item.status=='success' ? 'di-success': ''}"></i>
+                <i class="pure-icon pure-icon--di di-close"></i>
+            </label>
+        </li>
+    {/list}
+    {#list uploadList as item}
+        {#if item.name}
+        <li class="pure-upload-list__item">
+            <a class="pure-upload-list__item-name">
+                <i class="pure-icon pure-icon--di di-file "></i>
+                <span>{item.name||''}</span>
+            </a>
+        </li>
+        <div class="pure-upload-list__item-progress">
+            <ProgressBar percentage="{item.complete||0}"></ProgressBar>
+        </div>
+        {/if}
+    {/list}
+    </ul>
+</template>
+
+<script>
+    import ProgressBar from 'pure-progress-bar'
+
+    export default {
+        components: {
+            ProgressBar
+        }
+    }
+</script>

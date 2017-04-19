@@ -21,7 +21,7 @@ ul,li {
 }
 .@{upload-prefix-cls} {
 	position: relative;
-	&-dragger {
+	&-dragger, &-dragger__hover {
 		position: relative;
 		box-sizing: border-box;
 		height: 180px;
@@ -39,9 +39,13 @@ ul,li {
 	    span {
 	    	color: #20a0ff;
 	    }
-		&:hover {
-			border: 1px dashed #20a0ff
-		}
+	    &:hover {
+	    	border: 1px dashed #20a0ff;
+	    }
+	}
+	&-dragger__hover {
+		border: 1px dashed #20a0ff;
+		background-color: rgba(152, 218, 252, .3);
 	}
 	&-list-none {
 		display: none;
@@ -74,6 +78,9 @@ ul,li {
 		}
 		&-progress {
 			padding-left: 5px;
+			.pure-progress-bar__outer{
+				height: 3px;
+			}
 		}
 		.di-success {
 			display: inline-block;

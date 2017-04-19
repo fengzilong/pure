@@ -12,5 +12,7 @@ play( Upload, module )
 			</Upload>
 		` )
 	.add( 'drag', `
-		<Upload drag multiple></Upload>
+		<Upload drag>
+			<div class="pure-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+		</Upload>
 	` )
