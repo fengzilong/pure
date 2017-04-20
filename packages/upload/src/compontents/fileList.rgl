@@ -8,7 +8,7 @@
             </a>
             <label class="pure-upload-list__item-icon">
                 <i class="pure-icon pure-icon--di {item.status=='success' ? 'di-success': ''}"></i>
-                <i class="pure-icon pure-icon--di di-close"></i>
+                <i class="pure-icon pure-icon--di di-close" on-click={this.$parent.delFileList(item_index)}></i>
             </label>
         </li>
     {/list}

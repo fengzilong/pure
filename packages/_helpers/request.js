@@ -10,15 +10,6 @@
  *     @property {boolean} progress 上传是否显示进度条 true: 显示 false: 不显示 [默认值: false] 一般给图片等文件上传专用
  */
 export default class Request{
-    static getInstance(){
-       if(this.instance == undefined){
-           this.instance = new Request()
-           return this.instance
-       }else{
-           return this.instance
-       }
-    }
-
     request(url, opts) {
         //初始化opts
         var opts = opts || {

@@ -5,8 +5,8 @@
 				on-click={this.upload()}
 				on-dragenter={this.dragEnter()}
 				on-dragleave={this.dragLeave()}
-				on-drop={this.drop()}
-				on-dragover={this.dragOver()}
+				on-drop={this.drop($event)}
+				on-dragover={this.dragOver($event)}
 			>
 				<i class="pure-icon pure-icon--di di-upload "></i>
 				<div class="pure-upload__text">
@@ -59,17 +59,28 @@
 		          status: 'success'
 		        }]
 		},
-		dragEnter(evt){
+		delFileList(index) {
+			this.data.fileList.splice(index, 1);
+			this.$update();
+		},
+		dragEnter() {
 			this.$refs.drag.className = 'pure-upload-dragger__hover';
 		},
-		dragLeave(evt){
+		dragLeave() {
 			this.$refs.drag.className = 'pure-upload-dragger';
 		},
-		drop(evt){
-			evt.preventDefault();
+		drop($event) {
+			var files = $event.event.dataTransfer.files;
+			this.$refs.drag.className = 'pure-upload-dragger';
+		    if(files.length != 0) {
+		        this.checkFiles(files);
+		    };
+
+			$event.event.preventDefault();
 		},
-		dragOver(evt){
-			evt.preventDefault();
+		dragOver($event) {
+			$event.event.dataTransfer.dragEffect = 'copy';
+			$event.event.preventDefault();
 		},
 		upload() {
 			this.$refs.input.click();
@@ -113,7 +124,7 @@
 				                console.log(data);
 				            }
 				        }
-				        Request.getInstance().request('https://jsonplaceholder.typicode.com/posts/',opts);
+				        new Request().request('https://jsonplaceholder.typicode.com/posts/',opts);
 
 				        opts.onProgress = function(complete, index) {
 				        	self.updateUploadFileList(complete, index);
