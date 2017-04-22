@@ -1,16 +1,16 @@
 <template>
-	<div class="pure-upload__container { drag ? 'pure-upload--drag' : '' }">
-		{#if drag}
-			<div ref=drag class="pure-upload-dragger" 
-				on-click={this.upload()}
-				on-dragenter={this.dragEnter()}
-				on-dragleave={this.dragLeave()}
-				on-drop={this.drop($event)}
-				on-dragover={this.dragOver($event)}
+	<div class="pure-upload { drop ? 'pure-upload--drop' : '' }">
+		{#if type === 'drop'}
+			<div class="pure-upload__droparea { isDragOver ? 'pure-upload__droparea--hover' : '' }"
+				on-click={this.onUpload()}
+				on-dragenter={this.onDragEnter()}
+				on-dragleave={this.onDragLeave()}
+				on-drop={this.onDrop($event)}
+				on-dragover={this.onDragOver($event)}
 			>
-				<i class="pure-icon pure-icon--di di-upload "></i>
+				<div class="pure-upload__icon"><Icon type="upload"></Icon></div>
 				<div class="pure-upload__text">
-					将文件拖到此处，或<span>点击上传</span>
+					Drop files here, or <strong>Click me</strong>
 				</div>
 			</div>
 		{#else}
@@ -18,73 +18,65 @@
 		{/if}
 
 		{#if multiple}
-			<input multiple ref=input type="file" class="pure-upload-input">
+			<input multiple ref=input type="file" class="pure-upload__input">
 		{#else}
-			<input ref=input type="file" class="pure-upload-input">
+			<input ref=input type="file" class="pure-upload__input">
 		{/if}
 
-		{#inc this.$body}
+		<div class="pure-upload__tip">
+			{ tip }
+		</div>
 
 		{#if showFileList}
-			<FileList 
-				fileList = '{ fileList }'
-				uploadList = '{ uploadList }'
+			<FileList
+				fileList="{ fileList }"
+				uploadList="{ uploadList }"
 			></FileList>
 		{/if}
 	</div>
 </template>
 
 <script>
-	import Button from 'pure-button'
-	import Request from 'pure-helpers/request'
-	import FileList from './compontents/fileList'
-	
+	import Button from 'pure-button';
+	import Icon from 'pure-icon';
+	import Request from 'pure-helpers/request';
+	import FileList from './compontents/fileList';
+
 	export default {
 		components: {
 			Button,
-			Request,
+			Icon,
 			FileList
 		},
-		config(data) {
+		config() {
 			// [drag：默认false, multiple：默认false;若为拖拽只能为true, showFileList：默认true]
-			data = data || this.data;
-			this.data.showFileList = data.showFileList||true;
-			this.data.fileList= [{
-		          name: 'pic1.jpeg',
-		          url: '',
-		          status: 'success'
-		        }, {
-		          name: 'pic2.jpeg',
-		          url: '',
-		          status: 'success'
-		        }]
+			this.data.showFileList = typeof this.data.showFileList === 'undefined' ? true : this.data.showFileList;
+			this.data.fileList = this.data.fileList || [];
+			this.data.isDragOver = false;
 		},
-		delFileList(index) {
-			this.data.fileList.splice(index, 1);
-			this.$update();
+		onDragEnter() {
+			this.data.isDragOver = true;
 		},
-		dragEnter() {
-			this.$refs.drag.className = 'pure-upload-dragger__hover';
+		onDragLeave() {
+			this.data.isDragOver = false;
 		},
-		dragLeave() {
-			this.$refs.drag.className = 'pure-upload-dragger';
-		},
-		drop($event) {
-			var files = $event.event.dataTransfer.files;
-			this.$refs.drag.className = 'pure-upload-dragger';
-		    if(files.length != 0) {
-		        this.checkFiles(files);
-		    };
+		onDrop( e ) {
+			var files = e.event.dataTransfer.files;
+			this.data.isDragOver = false;
 
-			$event.event.preventDefault();
+			if ( files.length !== 0 ) {
+				this.checkFiles( files );
+			}
+
+			e.event.preventDefault();
 		},
-		dragOver($event) {
-			$event.event.dataTransfer.dragEffect = 'copy';
-			$event.event.preventDefault();
+		onDragOver( e ) {
+			e.event.dataTransfer.dragEffect = 'copy';
+			e.event.preventDefault();
 		},
-		upload() {
+		onUpload() {
 			this.$refs.input.click();
-			if(!this.isAlreadyBinding){
+			if ( !this.isAlreadyBinding ) {
 				this.inputChange();
 			}
 		},
@@ -92,79 +84,82 @@
 			var input = this.$refs.input;
 			var self = this;
 			this.isAlreadyBinding = true;
-			input.addEventListener('change',function(evt) {
+			input.addEventListener( 'change', function () {
 				var files = this.files;
-				if(files) {
-					self.checkFiles(files)
+				if ( files ) {
+					self.checkFiles( files );
 				}
-			});
+			} );
 		},
-		checkFiles(files) {
-			this.initUploadList(files);
+		checkFiles( files ) {
+			this._initUploadList( files );
 
-			var self = this;
+			const self = this;
 			let i = 0;
-			var loopUpload = function() {
-				if(files[i]) {
+			const loopUpload = function () {
+				if ( files[ i ] ) {
 					var reader = new FileReader();
-					if(!/image\/\w+/.test(files[i].type)){
-			            alert('请上传图片格式');
-			            return false;
-			        }
-					reader.onload = function() {
+					if ( !/image\/\w+/.test( files[ i ].type ) ) {
+						console.log( '请上传图片格式' );
+						return false;
+					}
+					reader.onload = function () {
 						var imgData = reader.result;
 						var opts = {
-				            method : 'POST',
-				            data : {
-				            	'imgData':imgData,
-				            	'index':i
-				        	},
-				            progress: true,
-				            success : function (data) {
-				                console.log(data);
-				            }
-				        }
-				        new Request().request('https://jsonplaceholder.typicode.com/posts/',opts);
+							method: 'POST',
+							data: {
+								imgData: imgData,
+								index: i
+							},
+							progress: true,
+							success: function ( data ) {
+								console.log( data );
+							}
+						};
 
-				        opts.onProgress = function(complete, index) {
-				        	self.updateUploadFileList(complete, index);
-				        };
-				        opts.onProgressEnd = function(index) {
-				        	self.removeUploadFileList(index);
-				        };
+						new Request().request( 'https://jsonplaceholder.typicode.com/posts/', opts );
+
+						opts.onProgress = function ( complete, index ) {
+							self._updateUploadFileList( complete, index );
+						};
+
+						opts.onProgressEnd = function ( index ) {
+							self._removeUploadFileListByIndex( index );
+						};
 
 						i++;
+
 						loopUpload();
 					};
-					reader.readAsDataURL(files[i]);
+
+					reader.readAsDataURL( files[ i ] );
 				}
-				
 			};
+
 			loopUpload();
 		},
-		initUploadList(files) {
+		_initUploadList( files ) {
 			this.data.uploadList = [];
-			for(let i = 0,l = files.length;i < l;i++) {
-				var uploadListItem = {};
-				uploadListItem.name = files[i].name;
+			for ( let i = 0, l = files.length; i < l; i++ ) {
+				const uploadListItem = {};
+				uploadListItem.name = files[ i ].name;
 				uploadListItem.complete = 0;
-				this.data.uploadList.push(uploadListItem);
+				this.data.uploadList.push( uploadListItem );
 			}
 			this.$update();
 		},
-		updateUploadFileList(complete, index) {
-			this.data.uploadList[index].complete = complete;
+		_updateUploadFileList( complete, index ) {
+			this.data.uploadList[ index ].complete = complete;
 			this.$update();
-
 		},
-		removeUploadFileList(index) {
-		    let newFileList = [];
-		    newFileList.name = this.data.uploadList[index].name;
-		    newFileList.url = '';
-		    newFileList.status = 'success';
+		_removeUploadFileListByIndex( index ) {
+			const newFileList = [];
+			newFileList.name = this.data.uploadList[ index ].name;
+			newFileList.url = '';
+			newFileList.status = 'success';
 
-			this.data.fileList.push(newFileList);
-			this.data.uploadList[index] = {};
+			this.data.fileList.push( newFileList );
+			this.data.uploadList[ index ] = {};
 			this.$update();
 		}
 	};

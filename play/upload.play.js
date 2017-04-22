@@ -1,18 +1,54 @@
 import Upload from 'pure-upload';
-import Button from 'pure-button';
-import ProgressBar from 'pure-progress-bar';
 
 play( Upload, module )
 	.name( 'Upload' )
-	.component( 'Button', Button )
-	.component( 'ProgressBar', ProgressBar )
-	.add( 'basic', `
-			<Upload multiple show-file-list=true>
-				<div class="pure-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+	.add( 'basic', {
+		template: `
+			<Upload
+				multiple
+				show-file-list=true
+				fileList="{ fileList }"
+				tip="只能上传jpg/png文件，且不超过500kb"
+			>
 			</Upload>
-		` )
-	.add( 'drag', `
-		<Upload drag>
-			<div class="pure-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-		</Upload>
-	` )
+		`,
+		config() {
+			this.data.fileList = [
+				{
+					name: 'pic1.jpeg',
+					url: '',
+					status: 'success',
+				},
+				{
+					name: 'pic2.jpeg',
+					url: '',
+					status: 'success',
+				},
+			];
+		},
+	} )
+	.add( 'drag', {
+		template: `
+				<Upload
+					type="drop"
+					show-file-list=true
+					fileList="{ fileList }"
+					tip="只能上传jpg/png文件，且不超过500kb"
+				>
+				</Upload>
+			`,
+		config() {
+			this.data.fileList = [
+				{
+					name: 'pic1.jpeg',
+					url: '',
+					status: 'success',
+				},
+				{
+					name: 'pic2.jpeg',
+					url: '',
+					status: 'success',
+				},
+			];
+		},
+	} );
