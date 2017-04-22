@@ -6,6 +6,9 @@
 				<a class="{ active === 'Button' ? 'active' : '' }" href="#/Button">Button</a>
 			</li>
 			<li>
+				<a class="{ active === 'Tag' ? 'active' : '' }" href="#/Tag">Tag</a>
+			</li>
+			<li>
 				<a class="{ active === 'Icon' ? 'active' : '' }" href="#/Icon">Icon</a>
 			</li>
 			<li>
@@ -13,6 +16,9 @@
 			</li>
 			<li>
 				<a class="{ active === 'Spinner' ? 'active' : '' }" href="#/Spinner">Spinner</a>
+			</li>
+			<li>
+				<a class="{ active === 'Loading' ? 'active' : '' }" href="#/Loading">Loading</a>
 			</li>
 			<li>
 				<a class="{ active === 'Rate' ? 'active' : '' }" href="#/Rate">Rate</a>
@@ -116,9 +122,10 @@
 </script>
 
 <style lang="less" scoped>
-	@import '../../../_theme/src/default/common/color.less';
+	@import '../../../_theme-default/src/common/color.less';
 
-	@hover-bgcolor: fade(tint(@primary-color,80%),30%);
+	@hover-bgcolor: fade(tint(@primary-color,80%),14%);
+	@active-bgcolor: fade(tint(@primary-color,80%),30%);
 
 	.nav {
 		width: 170px;
@@ -127,7 +134,7 @@
 	}
 
 	.title {
-		font-size: 13px;
+		font-size: 11px;
 		padding: 10px;
 		color: #999;
 	}
@@ -154,8 +161,12 @@
 
 	.active {
 		color: @primary-color;
-		background-color: @hover-bgcolor;
+		background-color: @active-bgcolor;
 		border-right: solid 1px @primary-color;
 		font-weight: 500;
+
+		&:hover {
+			background-color: @active-bgcolor;
+		}
 	}
 </style>

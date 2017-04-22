@@ -1,0 +1,13 @@
+{
+  "name": "@pure/theme-ocean",
+  "version": "0.1.0",
+  "main": "lib/index.css",
+  "scripts": {
+    "theme": "pure --name=pureTheme"
+  },
+  "author": "fengzilong <fengzilong1992@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "pure-cli": "latest"
+  }
+}

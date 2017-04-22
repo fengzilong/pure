@@ -6,7 +6,7 @@
 
 > elegant and lovely components
 
-| [:book: Docs](https://pure.js.org) | [:snowboarder: Playground](https://jsfiddle.net/fengzilong/bc7rnqn5/) |
+| [:book: Docs](https://pure.js.org) | [:snowboarder: Playground](https://jsfiddle.net/7krkLg5g/) |
 | :---: | :---: |
 
 ## Installation
@@ -17,13 +17,13 @@ $ npm install pure-ui --save
 
 ## Usage
 
-**Option 1**: with webpack
+**Option 1**: with webpack ( Recommended )
 
 ```js
 import Regular from 'regularjs';
 import Pure from 'pure-ui';
 // import css
-import 'pure-ui/dist/pure.css';
+import 'pure-ui/lib/index.css';
 
 Regular.use( Pure );
 ```
@@ -31,12 +31,12 @@ Regular.use( Pure );
 **Option 2**: hot-link
 
 ```html
-<link rel="stylesheet" href="//unpkg.com/pure-ui/dist/pure.css">
+<link rel="stylesheet" href="//unpkg.com/pure-ui/lib/index.css">
 ```
 
 ```html
-<script type="text/javascript" src="//unpkg.com/regularjs@0.5.2/dist/regular.js"></script>
-<script type="text/javascript" src="//unpkg.com/pure-ui/dist/pure.js"></script>
+<script type="text/javascript" src="//unpkg.com/regularjs/dist/regular.js"></script>
+<script type="text/javascript" src="//unpkg.com/pure-ui/lib/index.js"></script>
 ```
 
 ```js
@@ -52,7 +52,7 @@ Another.use( Pure );
 
 ## CDN
 
-| [pure.js](https://unpkg.com/pure-ui/dist/pure.js) | [pure.css](https://unpkg.com/pure-ui/dist/pure.css) |
+| [pure.js](https://unpkg.com/pure-ui/lib/index.js) | [pure.css](https://unpkg.com/pure-ui/lib/index.css) |
 | :---: | :---: |
 
 ## Contributing

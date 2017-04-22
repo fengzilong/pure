@@ -1,5 +1,5 @@
 {
-  "name": "pure-upload",
+  "name": "@pure/upload",
   "main": "lib/index.js",
   "play:main": "src/index.js",
   "scripts": {
@@ -12,8 +12,8 @@
     "pure-cli": "latest"
   },
   "peerDependencies": {
-    "pure-button": "^0.1.0",
-    "pure-progress-bar": "^0.1.0",
-    "pure-icon": "^0.1.0"
+    "@pure/button": "^0.1.0",
+    "@pure/progress-bar": "^0.1.0",
+    "@pure/icon": "^0.1.0"
   }
 }

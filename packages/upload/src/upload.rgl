@@ -37,9 +37,9 @@
 </template>
 
 <script>
-	import Button from 'pure-button';
-	import Icon from 'pure-icon';
-	import Request from 'pure-helpers/request';
+	import Button from '@pure/button';
+	import Icon from '@pure/icon';
+	import Request from '@pure/helpers/request';
 	import FileList from './compontents/fileList';
 
 	export default {
